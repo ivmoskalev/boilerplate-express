@@ -11,7 +11,12 @@ app.use("/public", express.static(__dirname + "/public"));
 app.get("/json", (req, res) => process.env.MESSAGE_STYLE === "uppercase"
                              ? res.json({"message": "HELLO JSON"})
                              : res.json({"message": "Hello json"}));
-
+app.get("/now", (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+}, (req, res) => 
+    res.json({time: req.time})
+);
 
 
 
